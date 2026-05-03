@@ -26,10 +26,10 @@ export function setToken(token) {
 }
 
 /**
-/**
  * 删除 Token
  * @returns {void}
  */
 export function removeToken() {
     return Cookies.remove(TokenKey);
 }
+

@@ -8,6 +8,9 @@
  */
 
 import axios from "axios";
+import { ElMessage } from "element-plus";
+import { getToken, removeToken } from "./cookie";
+import router from "@/router";
 
 /**
  * 创建 Axios 实例
@@ -19,6 +22,28 @@ const service = axios.create({
   // 请求超时时间（毫秒）
   timeout: 5000,
 });
+
+// 请求拦截器（【自动触发】无需手动调用）
+/**
+ * 工作原理：
+ * 1. 任何通过 service 发送的请求，都会自动经过这个拦截器
+ * 2. 拦截器会检查请求头是否包含 Authorization 字段
+ * 3. 如果包含，说明已登录，将 token 添加到请求头
+ * 4. 如果不包含，说明未登录，直接放行
+ */
+service.interceptors.request.use(
+  (config) => {
+    if(getToken()) {
+      config.headers['Authorization'] = "Bearer " + getToken()
+    }
+    // 必须返回 config，否则 axios 会认为配置是 undefined
+    return config;
+  },
+  (error) => {
+    console.log(error)
+    return Promise.reject(error);
+  }
+);
 
 /**
  * 响应拦截器（【自动触发】无需手动调用）
@@ -47,8 +72,14 @@ service.interceptors.response.use(
     const msg = res.data.msg;
 
     // 判断业务状态码
-    if (code !== 1000) {
-      // 业务失败：显示错误提示，拒绝 Promise（进入 catch）
+    if (code === 3001) {
+      // token 过期/无效：清除 token 并跳转到登录页
+      ElMessage.error(msg);
+      removeToken(); // 清除本地 token
+      router.push("/oj/login"); // 跳转到登录页
+      return Promise.reject(new Error(msg));
+    } else if (code !== 1000) {
+      // 其他业务失败：显示错误提示，拒绝 Promise（进入 catch）
       ElMessage.error(msg);
       return Promise.reject(new Error(msg));
     } else {

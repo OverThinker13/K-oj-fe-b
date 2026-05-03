@@ -29,7 +29,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { loginService } from '@/apis/suer'
+import { loginService } from '@/apis/suser'
 import { setToken } from '@/utils/cookie'
 import router from '@/router'
 const userAccount = ref('')
@@ -37,12 +37,17 @@ const password = ref('')
 
 async function loginFun() {
   try {
+    // 拦截器已解包，loginResult 直接是后端返回的业务数据
     const loginResult = await loginService(userAccount.value, password.value)
     console.log("loginResult:", loginResult)
-    router.push("/oj/system")
-    setToken(loginResult.data.data)
+    
+    // 保存 token（假设后端返回的就是 token 字符串）
+    setToken(loginResult)
+    
+    // 跳转到系统页面
+    router.push("/oj/layout")
   } catch (error) {
-    console.log("error:", error)
+    console.log("登录失败:", error)
   }
 
   // if(loginResult.data.code === 1000){  //
@@ -79,7 +84,7 @@ html, body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background: #111;
+  background: #f8f9fa; /* 白色背景 */
   width: 100%;
   overflow: hidden;
   position: fixed;
@@ -160,19 +165,18 @@ html, body {
 .sys-name {
   font-size: 48px;
   font-weight: 700;
-  background: linear-gradient(45deg, #00ff0a, #00cc08, #009906);
+  background: linear-gradient(45deg, #22c55e, #16a34a, #15803d);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   letter-spacing: 4px;
   text-shadow: none;
   margin: 0;
-  filter: drop-shadow(0 0 10px rgba(0, 255, 10, 0.5));
 }
 
 .sys-sub-name {
   font-size: 14px;
-  color: rgba(255, 255, 255, 0.9);
+  color: #374151; /* 深灰色文字，确保可见 */
   letter-spacing: 2px;
 }
 
@@ -202,8 +206,8 @@ html, body {
 }
 
 .form-item :deep(.el-input__wrapper) {
-  background: transparent;
-  border: 2px solid rgba(0, 255, 10, 0.3);
+  background: #fff;
+  border: 2px solid rgba(34, 197, 94, 0.3);
   border-radius: 30px;
   padding: 8px 15px 8px 45px;
   box-shadow: none;
@@ -211,12 +215,12 @@ html, body {
 
 .form-item :deep(.el-input__wrapper:hover),
 .form-item :deep(.el-input__wrapper.is-focus) {
-  border-color: #00ff0a;
-  box-shadow: 0 0 10px rgba(0, 255, 10, 0.5);
+  border-color: #22c55e;
+  box-shadow: 0 0 10px rgba(34, 197, 94, 0.3);
 }
 
 .form-item :deep(.el-input__inner) {
-  color: #fff;
+  color: #1f2937; /* 深灰色文字 */
   font-size: 16px;
 }
 
@@ -224,22 +228,21 @@ html, body {
   color: rgba(255, 255, 255, 0.5);
 }
 
-/* 密码显示/隐藏图标颜色 - 荧光绿 */
 .form-item :deep(.el-input__icon) {
-  color: #00ff0a;
+  color: #22c55e;
 }
 
 .form-item :deep(.el-input__icon:hover) {
-  color: #00cc08;
+  color: #16a34a;
 }
 
 .submit-box {
   width: 100%;
   padding: 12px 20px;
-  background: #111;
-  border: 2px solid #00ff0a;
+  background: #22c55e;
+  border: 2px solid #22c55e;
   border-radius: 30px;
-  color: #00ff0a;
+  color: #fff;
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
@@ -250,9 +253,10 @@ html, body {
 
 .submit-box:hover {
   transform: scale(1.05);
-  background: #00ff0a;
-  color: #111;
-  box-shadow: 0 0 20px rgba(0, 255, 10, 0.5);
+  background: #16a34a;
+  border-color: #16a34a;
+  color: #fff;
+  box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
 }
 
 @media (max-width: 520px) {
