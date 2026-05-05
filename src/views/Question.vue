@@ -33,7 +33,7 @@
       </template>
     </el-table-column>
   </el-table>
-  <el-pagination background size="small" layout="total, sizes, prev, pager, next, jumper" :total="total" v-model:current-page="params.pageNum" v-model:page-size="params.pageSize" :page-sizes="[1, 5, 10, 15, 20]"  @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+  <el-pagination background size="small" layout="total, sizes, prev, pager, next, jumper" :total="total" v-model:current-page="params.pageNum" v-model:page-size="params.pageSize" :page-sizes="[5, 10, 15, 20]"  @size-change="handleSizeChange" @current-change="handleCurrentChange" />
   <question-drawer ref="questionEditRef" @success="onSuccess"></question-drawer>
 </template>
 
@@ -71,18 +71,18 @@ function handleCurrentChange(newPage) {
   getQuestionList()
 }
 
-// function onSearch() {
-//   params.pageNum = 1
-//   getQuestionList()
-// }
+function onSearch() {
+  params.pageNum = 1
+  getQuestionList()
+}
 
-// function onReset() {
-//   params.pageNum = 1
-//   params.pageSize = 10
-//   params.title = ''
-//   params.difficulty = ''
-//   getQuestionList()
-// }
+function onReset() {
+  params.pageNum = 1
+  params.pageSize = 10
+  params.title = ''
+  params.difficulty = ''
+  getQuestionList()
+}
 
 // const questionEditRef = ref()
 // // 添加
