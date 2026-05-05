@@ -33,7 +33,7 @@ const service = axios.create({
  */
 service.interceptors.request.use(
   (config) => {
-    if(getToken()) {
+    if (getToken()) {
       config.headers['Authorization'] = "Bearer " + getToken()
     }
     // 必须返回 config，否则 axios 会认为配置是 undefined
@@ -83,8 +83,11 @@ service.interceptors.response.use(
       ElMessage.error(msg);
       return Promise.reject(new Error(msg));
     } else {
-      // 业务成功：直接返回最内层业务数据，简化业务代码调用
-      return Promise.resolve(res.data.data);
+      // 统一处理：兼容两种后端返回格式
+      // 格式1: { code, msg, data: {...} }  → 返回 data 字段
+      // 格式2: { code, msg, rows, total }  → 返回整个响应对象
+      const responseData = res.data.data !== undefined ? res.data.data : res.data;
+      return Promise.resolve(responseData);
     }
   },
   /**
