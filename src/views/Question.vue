@@ -42,7 +42,8 @@ import { Plus } from "@element-plus/icons-vue"
 import Selector from "@/components/QuestionSelector.vue"
 import { getQuestionListService, delQuestionService } from "@/apis/question"
 import { reactive, ref } from "vue";
-// import QuestionDrawer from "@/components/QuestionDrawer.vue"
+import QuestionDrawer from "@/components/QuestionDrawer.vue"
+// import CodeEditor from "@/components/CodeEditor.vue"
 
 const params = reactive({
   pageNum: 1,
@@ -84,19 +85,19 @@ function onReset() {
   getQuestionList()
 }
 
-// const questionEditRef = ref()
-// // 添加
-// const onAddQuestion = () => {
-//   questionEditRef.value.open()
-// }
+const questionEditRef = ref()
+// 添加
+const onAddQuestion = () => {
+  questionEditRef.value.open()
+}
 
 
-// function onSuccess(service) {
-//   if (service === 'add') {
-//     params.pageNum = 1
-//   }
-//   getQuestionList()
-// }
+function onSuccess(service) {
+  if (service === 'add') {
+    params.pageNum = 1
+  }
+  getQuestionList()
+}
 
 // async function onEdit(questionId) {
 //   questionEditRef.value.open(questionId)

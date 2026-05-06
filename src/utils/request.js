@@ -12,6 +12,8 @@ import { ElMessage } from "element-plus";
 import { getToken, removeToken } from "./cookie";
 import router from "@/router";
 
+axios.defaults.headers['Content-Type'] = 'application/json;charset=UTF-8'
+
 /**
  * 创建 Axios 实例
  * @type {axios.AxiosInstance}
