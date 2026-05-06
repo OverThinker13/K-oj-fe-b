@@ -27,7 +27,7 @@
         <code-editor @update:value="handleEditorContent" ref="defaultCodeRef"></code-editor>
       </el-form-item>
       <el-form-item label="main函数:">
-        <code-editor @update:value="handleEditorMainFunc" ref="mainFucRef"></code-editor>
+        <code-editor @update:value="handleEditorMainFunc" ref="mainFuncRef"></code-editor>
       </el-form-item>
       <el-form-item>
         <el-button class="question-button" type="primary" plain @click="onSubmit()">发布</el-button>
@@ -58,7 +58,7 @@ const formQuestion = reactive({
 })
 
 const defaultCodeRef = ref()
-const mainFucRef = ref()
+const mainFuncRef = ref()
 
 async function open(questionId) {
   visibleDrawer.value = true
@@ -69,9 +69,9 @@ async function open(questionId) {
   }
   if (questionId) {
     const questionDetail = await getQuestionDetailService(questionId)
-    Object.assign(formQuestion, questionDetail.data)
+    Object.assign(formQuestion, questionDetail)
     defaultCodeRef.value.setAceCode(formQuestion.defaultCode)
-    mainFucRef.value.setAceCode(formQuestion.mainFunc)
+    mainFuncRef.value.setAceCode(formQuestion.mainFunc)
   }
 }
 

@@ -99,13 +99,13 @@ function onSuccess(service) {
   getQuestionList()
 }
 
-// async function onEdit(questionId) {
-//   questionEditRef.value.open(questionId)
-// }
+async function onEdit(questionId) {
+  questionEditRef.value.open(questionId)
+}
 
-// async function onDelete(questionId) {
-//   await delQuestionService(questionId)
-//   params.pageNum = 1
-//   getQuestionList()
-// }
+async function onDelete(questionId) {
+  await delQuestionService(questionId)
+  params.pageNum = 1
+  getQuestionList()
+}
 </script>
