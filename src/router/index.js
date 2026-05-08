@@ -7,46 +7,59 @@ const router = createRouter({
     {
       path: '/oj/login',
       name: 'login',
-      component: () => import('@/views/Login.vue'),
+      component: () => import('@/views/Login.vue')
     },
     {
-      path: '/',
-      redirect: '/oj/login',
+      path:"/",
+      redirect:'/oj/login',
     },
     {
       path: '/oj/layout',
       name: 'layout',
       component: () => import('@/views/Layout.vue'),
       children: [
-        { path: 'cuser', name: 'cuser', component: () => import('@/views/Cuser.vue') },
-        { path: 'question', name: 'question', component: () => import('@/views/Question.vue') },
-        { path: 'exam', name: 'exam', component: () => import('@/views/Exam.vue') },
+        {
+          path: 'question',
+          name: 'question',
+          component: () => import('@/views/Question.vue')
+        },
+        {
+          path: 'exam',
+          name: 'exam',
+          component: () => import('@/views/Exam.vue')
+        },
+        {
+          path: 'updateExam',
+          name: 'updateExam',
+          component: () => import('@/views/UpdateExam.vue')
+        },
+        {
+          path: 'cuser',
+          name: 'cuser',
+          component: () => import('@/views/Cuser.vue')
+        }
       ]
-    },
-  ],
+    }
+  ]
 })
 
-// ✅ Vue Router 4.x 新写法：使用 return 代替 next()
-router.beforeEach((to, from) => {
-  const hasToken = getToken()
-  
-  // 已登录状态
-  if (hasToken) {
+router.beforeEach((to, from, next) => {
+  if (getToken()) {  //已经登陆过
+    /* has token*/
     if (to.path === '/oj/login') {
-      // 已登录访问登录页 → 重定向到首页
-      return { path: '/oj/layout/question' }
+      next({ path: '/oj/layout/question' })
+    } else {
+      next()
     }
-    // 已登录访问其他页面 → 放行
-    return true
+  } else {
+    if (to.path !== '/oj/login') {
+      next({path:'/oj/login'})
+    } else {
+      next()
+    }
   }
-  
-  // 未登录状态
-  if (to.path !== '/oj/login') {
-    // 未登录访问需要权限的页面 → 跳转到登录页
-    return { path: '/oj/login' }
-  }
-  // 未登录访问登录页 → 放行
-  return true
 })
 
 export default router
+
+
