@@ -1,5 +1,5 @@
 <template>
-  <el-form inline="true">
+  <el-form :inline="true">
     <el-form-item>
       <selector v-model="params.difficulty" placeholder="请选择题目难度" style="width: 200px;"></selector>
     </el-form-item>
@@ -42,6 +42,7 @@ import { Plus } from "@element-plus/icons-vue"
 import Selector from "@/components/QuestionSelector.vue"
 import { getQuestionListService, delQuestionService } from "@/apis/question"
 import { reactive, ref } from "vue";
+import { ElMessage, ElMessageBox } from "element-plus";
 import QuestionDrawer from "@/components/QuestionDrawer.vue"
 // import CodeEditor from "@/components/CodeEditor.vue"
 
@@ -104,8 +105,32 @@ async function onEdit(questionId) {
 }
 
 async function onDelete(questionId) {
-  await delQuestionService(questionId)
-  params.pageNum = 1
-  getQuestionList()
+  try {
+    // 显示确认对话框
+    await ElMessageBox.confirm(
+      '确定要删除这道题目吗？',
+      '删除确认',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }
+    )
+    
+    // 调用删除接口
+    await delQuestionService(questionId)
+    
+    // 显示成功提示
+    ElMessage.success('删除成功')
+    
+    // 刷新列表
+    params.pageNum = 1
+    getQuestionList()
+  } catch (error) {
+    // 如果用户取消删除，显示取消提示
+    if (error !== 'cancel') {
+      ElMessage.error('删除失败')
+    }
+  }
 }
 </script>

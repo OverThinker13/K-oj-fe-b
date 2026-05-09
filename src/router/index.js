@@ -43,21 +43,21 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from, next) => {
-  if (getToken()) {  //已经登陆过
-    /* has token*/
-    if (to.path === '/oj/login') {
-      next({ path: '/oj/layout/question' })
-    } else {
-      next()
-    }
-  } else {
-    if (to.path !== '/oj/login') {
-      next({path:'/oj/login'})
-    } else {
-      next()
-    }
+router.beforeEach((to, from) => {
+  const hasToken = getToken()
+  
+  // 如果已登录且访问登录页，重定向到首页
+  if (hasToken && to.path === '/oj/login') {
+    return { path: '/oj/layout/question' }
   }
+  
+  // 如果未登录且访问非登录页，重定向到登录页
+  if (!hasToken && to.path !== '/oj/login') {
+    return { path: '/oj/login' }
+  }
+  
+  // 其他情况允许通行
+  return true
 })
 
 export default router

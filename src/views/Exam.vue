@@ -1,5 +1,5 @@
 <template>
-  <el-form inline="true">
+  <el-form :inline="true">
     <el-form-item label="创建日期">
       <el-date-picker v-model="datetimeRange" style="width: 240px" type="datetimerange" range-separator="至"
         start-placeholder="开始日期" end-placeholder="结束日期"></el-date-picker>
@@ -65,6 +65,7 @@ import { Plus } from '@element-plus/icons-vue'
 import { getExamListService, delExamService, publishExamService, cancelPublishExamService } from '@/apis/exam'
 import { reactive,ref } from 'vue'
 import router from '@/router'
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 function isNotStartExam(exam) {
   const now = new Date(); //当前时间
@@ -144,9 +145,33 @@ async function onEdit(examId) {
 }
 
 async function onDelete(examId) {
-  await delExamService(examId)
-  params.pageNum = 1
-  getExamList()
+  try {
+    // 显示确认对话框
+    await ElMessageBox.confirm(
+      '确定要删除这个竞赛吗？删除后将无法恢复！',
+      '删除确认',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }
+    )
+    
+    // 调用删除接口
+    await delExamService(examId)
+    
+    // 显示成功提示
+    ElMessage.success('删除成功')
+    
+    // 刷新列表
+    params.pageNum = 1
+    getExamList()
+  } catch (error) {
+    // 如果用户取消删除，显示取消提示
+    if (error !== 'cancel') {
+      ElMessage.error('删除失败')
+    }
+  }
 }
 
 async function publishExam(examId) {

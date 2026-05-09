@@ -254,8 +254,8 @@ async function deleteExamQuestion(examId, questionId) {
 async function getExamDetailById(examId) {
   const examDetail = await getExamDetailService(examId)
   formExam.examQuestionList = []
-  Object.assign(formExam, examDetail.data)
-  formExam.examDate = [examDetail.data.startTime, examDetail.data.endTime]
+  Object.assign(formExam, examDetail)
+  formExam.examDate = [examDetail.startTime, examDetail.endTime]
 }
 
 </script>
