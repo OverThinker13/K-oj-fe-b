@@ -1,6 +1,10 @@
 <template>
-  <el-container class="layout-container">
-    <!-- 顶部导航栏 -->
+  <div class="layout-wrapper">
+    <!-- 植物装饰 -->
+    <PlantDecoration />
+    
+    <el-container class="layout-container">
+      <!-- 顶部导航栏 -->
     <el-header class="el-header">
       <el-dropdown>
         <span class="el-dropdown__box">
@@ -50,7 +54,8 @@
         <RouterView />
       </el-main>
     </el-container>
-  </el-container>
+    </el-container>
+  </div>
 </template>
 
 <script setup>
@@ -63,6 +68,7 @@ import { reactive } from 'vue'
 import router from '@/router'
 import { getUserInfoService, logoutService } from '@/apis/suser'
 import { removeToken } from '@/utils/cookie'
+import PlantDecoration from '@/components/PlantDecoration.vue'
 
 const loginUser = reactive({
     nickName: ''
@@ -95,6 +101,11 @@ async function logout(){
 </script>
 
 <style lang="scss" scoped>
+.layout-wrapper {
+  position: relative;
+  min-height: 100vh;
+}
+
 .layout-container {
   height: 100vh;
   display: flex;
@@ -136,21 +147,21 @@ async function logout(){
       box-shadow: 2px 0 8px rgba(0, 0, 0, 0.02);
       
       .el-menu {
-        border-right: none;
-        height: 100%;
-        
-        .el-menu-item {
-          &.is-active {
-            color: #32c5ff;
-            background-color: #e6f7ff;
-          }
+          border-right: none;
+          height: 100%;
           
-          &:hover {
-            background: #f5f5f5;
-            color: #32c5ff;
+          .el-menu-item {
+            &.is-active {
+              color: #22c55e;
+              background-color: #dcfce7;
+            }
+            
+            &:hover {
+              background: #f0fdf4;
+              color: #16a34a;
+            }
           }
         }
-      }
     }
     
     .el-main {

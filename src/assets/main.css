@@ -1,16 +1,23 @@
 .el-table {
   th {
-    background-color: #32c5ff !important;
-    color: #ffff;
+    background-color: #34d399 !important;
+    color: #fefdfb;
   }
 }
 
 .el-button--primary {
-  color: #32c5ff !important;
+  color: #fff !important;
+  background-color: #34d399 !important;
+  border-color: #34d399 !important;
+}
+
+.el-button--primary:hover {
+  background-color: #10b981 !important;
+  border-color: #10b981 !important;
 }
 
 .el-button--text {
-  color: #32c5ff !important;
+  color: #333 !important;
   &.red span{
     color: #FD4C40;
   }
@@ -20,6 +27,179 @@
   margin-top: 20px;
   justify-content: flex-end;
   .el-pager li.is-active {
-    background-color: #32c5ff !important;
+    background-color: #34d399 !important;
+    color: #fff !important;
   }
+}
+
+/* 选中状态颜色 */
+.el-menu-item.is-active {
+  background-color: #d1fae5 !important;
+  color: #059669 !important;
+}
+
+.el-tag--success,
+.el-checkbox__input.is-checked .el-checkbox__inner,
+.el-radio__input.is-checked .el-radio__inner {
+  background-color: #34d399 !important;
+  border-color: #34d399 !important;
+  color: #fefdfb !important;
+}
+
+/* 表格选中行 */
+.el-table__row.is-highlight {
+  background-color: #d1fae5 !important;
+}
+
+/* 输入框聚焦 */
+.el-input__wrapper.is-focus {
+  box-shadow: 0 0 0 2px rgba(52, 211, 153, 0.2) !important;
+  border-color: #34d399 !important;
+}
+
+/* 对话框按钮 */
+.el-dialog__footer .el-button--primary {
+  color: #fefdfb !important;
+}
+
+/* 下拉菜单选中状态 */
+.el-dropdown-menu__item.is-active,
+.el-dropdown-menu__item:hover,
+.el-dropdown-menu__item:focus {
+  background-color: #d1fae5 !important;
+  color: #059669 !important;
+}
+
+/* 下拉菜单分割线 */
+.el-dropdown-menu__divider {
+  background-color: #d1fae5 !important;
+}
+
+/* 下拉菜单图标颜色 */
+.el-dropdown-menu__item i {
+  color: #059669 !important;
+}
+
+/* 下拉菜单容器 */
+.el-dropdown-menu {
+  border-color: #d1fae5 !important;
+}
+
+/* 植物装饰样式 */
+.plant-decoration {
+  position: fixed;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.plant-decoration svg {
+  width: 80px;
+  height: 80px;
+}
+
+/* 左上角植物 */
+.plant-top-left {
+  top: 0;
+  left: 0;
+  transform: rotate(-15deg);
+}
+
+/* 右上角植物 */
+.plant-top-right {
+  top: 0;
+  right: 0;
+  transform: rotate(15deg) scaleX(-1);
+}
+
+/* 左下角植物 */
+.plant-bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: rotate(-15deg) scaleX(-1);
+}
+
+/* 右下角植物 */
+.plant-bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: rotate(15deg);
+}
+
+/* 页面标题装饰 */
+.page-title-decoration {
+  position: relative;
+  padding-left: 20px;
+}
+
+.page-title-decoration::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(to bottom, #34d399, #10b981);
+  border-radius: 2px;
+}
+
+/* 卡片装饰边框 */
+.card-decoration {
+  position: relative;
+  overflow: hidden;
+}
+
+.card-decoration::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to right, transparent, #34d399, transparent);
+}
+
+/* 按钮装饰 */
+.el-button--primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.el-button--primary::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -10px;
+  width: 20px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(45deg);
+}
+
+/* 表格行hover效果 */
+.el-table__row {
+  transition: all 0.2s ease;
+}
+
+.el-table__row:hover {
+  background-color: rgba(52, 211, 153, 0.08) !important;
+}
+
+/* 圆角美化 */
+.el-card,
+.el-dialog,
+.el-table,
+.el-input__wrapper,
+.el-select__wrapper {
+  border-radius: 12px !important;
+}
+
+/* 阴影效果 */
+.el-card {
+  box-shadow: 0 2px 12px rgba(52, 211, 153, 0.08) !important;
+}
+
+.el-button--primary {
+  box-shadow: 0 2px 8px rgba(52, 211, 153, 0.3) !important;
 }

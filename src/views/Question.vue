@@ -17,7 +17,7 @@
     <el-table-column prop="title" label="题目标题" />
     <el-table-column prop="difficulty" label="题目难度" width="90px">
       <template #default="{ row }">
-        <div v-if="row.difficulty === 1" style="color:#3EC8FF;">简单</div>
+        <div v-if="row.difficulty === 1" style="color:#34d399;">简单</div>
         <div v-if="row.difficulty === 2" style="color:#FE7909;">中等</div>
         <div v-if="row.difficulty === 3" style="color:#FD4C40;">困难</div>
       </template>

@@ -46,11 +46,11 @@
         </el-button>
         <el-button v-if="isNotStartExam(row) && row.status == 0" type="text" @click="onDelete(row.examId)" class="red">删除
         </el-button>
-        <el-button v-if="row.status == 1 && isNotStartExam(row)" type="text"
+        <el-button v-if="row.status == 1 && isNotStartExam(row)" type="text" style="color:#f97316 !important;"
           @click="cancelPublishExam(row.examId)">撤销发布</el-button>
-        <el-button v-if="row.status == 0 && isNotStartExam(row)" type="text"
+        <el-button v-if="row.status == 0 && isNotStartExam(row)" type="text" style="color:#34d399 !important;"
           @click="publishExam(row.examId)">发布</el-button>
-        <el-button type="text" v-if="!isNotStartExam(row)">已开赛，不允许操作</el-button>
+        <el-button type="text" style="color:#9ca3af !important;" v-if="!isNotStartExam(row)">已开赛，不允许操作</el-button>
       </template>
     </el-table-column>
   </el-table>
