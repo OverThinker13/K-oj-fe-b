@@ -2,9 +2,9 @@
 <template>
   <!-- 底部小森林装饰 -->
   <div class="forest-decoration">
-    <svg viewBox="0 0 1920 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 1920 120" fill="none" xmlns="http://www.w3.org/2000/svg">
       <!-- 草地背景 -->
-      <path d="M0 110 L0 50 Q150 20 300 40 Q450 60 600 35 Q750 10 900 40 Q1050 70 1200 40 Q1350 10 1500 45 Q1650 70 1800 35 L1920 50 L1920 110 Z" fill="#86efac"/>
+      <path d="M0 120 L0 50 Q150 20 300 40 Q450 60 600 35 Q750 10 900 40 Q1050 70 1200 40 Q1350 10 1500 45 Q1650 70 1800 35 L1920 50 L1920 120 Z" fill="#86efac"/>
       
       <!-- 灌木丛1 -->
       <g transform="translate(50, 40)">
@@ -152,10 +152,10 @@
 <style scoped>
 .forest-decoration {
   position: fixed;
-  bottom: -10px;
+  bottom: -20px;
   left: 0;
   width: 100%;
-  height: 110px;
+  height: 120px;
   z-index: 9998;
   pointer-events: none;
 }

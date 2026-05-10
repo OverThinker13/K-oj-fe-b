@@ -63,7 +63,7 @@
         <el-dialog v-model="dialogVisible">
           <div class="exam-list-box">
             <div class="exam-list-title required">选择竞赛题目</div>
-            <el-form inline="true">
+            <el-form :inline="true">
               <el-form-item label="题目难度">
                 <selector v-model="params.difficulty" style="width: 120px;"></selector>
               </el-form-item>
